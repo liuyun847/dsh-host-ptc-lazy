@@ -1,0 +1,37 @@
+{
+  "name": "dsh-host-ptc-lazy",
+  "description": "DSH 宿主插件(只给 ptc 预设用):把系统提示词里的 tools:sdk 段换成一个逐字恒定的 stub,并在模型调用 load_<组>_tools 时把该组工具签名作为一条 user 消息注入到对话尾部。目的:ptc 会话首请求不再白付全量 SDK(本机实测 164k 字符 / 约 5.1 万 token),签名只在真正用到某组时才付,且注入发生在尾部 ⇒ 不改前缀、不破缓存。不声明 dsh.bundle:本插件不全局加载,只能由 agent 预设的 plugins 行挂载。",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liuyun847/dsh-host-ptc-lazy.git"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "cordis",
+    "plugin",
+    "ptc",
+    "context-optimization",
+    "lazy-loading"
+  ]
+}
